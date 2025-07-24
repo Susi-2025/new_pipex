@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:27:14 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/24 14:58:45 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:18:08 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@
 
 # include "./libft/libft.h"
 
-typedef struct s_stack
+typedef struct s_pipex
 {
-	int	ac;
-	char	**av;
-	char	**envp;
+	int	pipefd[2];
+	pid_t	pid1;
+	pid_t	pid2;
+	int		fd_in;
+	int		fd_out;
+}	t_pipex;
 
-}	t_stack;
+void	first_process(t_pipex *pipex, char **av, char **envp);
+void	second_process(t_pipex *pipex, char **av, char **envp);
 
 #endif
