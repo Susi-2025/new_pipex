@@ -6,14 +6,14 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:53:13 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/24 20:19:01 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:48:51 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 void	close_stack(t_pipex *pipex)
-{	
+{
 	if (pipex && pipex->fd_in != -1)
 		close(pipex->fd_in);
 	if (pipex && pipex->fd_out != -1)

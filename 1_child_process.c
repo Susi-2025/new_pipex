@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   1_child.c                                          :+:      :+:    :+:   */
+/*   1_child_process.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 08:59:06 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/24 20:19:40 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:48:28 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static int	open_file(t_pipex *pipex, int in_out);
 
 void	first_process(t_pipex *pipex, char **av, char **envp)
-{	
+{
 	open_file(pipex, av, 0);
-	if (dup2(pipex->fd_in, STDIN_FILENO)== -1)
+	if (dup2(pipex->fd_in, STDIN_FILENO) == -1)
 		error(pipex, 1);
 	if (dup2(pipex->pipefd[1], STDOUT_FILENO) == -1)
 		error(pipex, 1);
@@ -28,7 +28,7 @@ void	first_process(t_pipex *pipex, char **av, char **envp)
 void	second_process(t_pipex *pipex, int *pipefd)
 {
 	open_file(pipex, av, 1);
-	if (dup2(pipex->fd_out, STDOUT_FILENO) ==  -1)
+	if (dup2(pipex->fd_out, STDOUT_FILENO) == -1)
 		error(pipex, 1);
 	if (dup2(pipex->pipefd[0], STDIN_FILENO) == -1)
 		error(pipex, 1);
@@ -37,7 +37,7 @@ void	second_process(t_pipex *pipex, int *pipefd)
 }
 
 static void	open_file(t_pipex *pipex, char **av, int in_out)
-{	
+{
 	if (in_out == 0)
 	{
 		pipex->fd_in = open(av[1], O_RDONLY);

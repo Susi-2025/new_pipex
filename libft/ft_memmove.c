@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:19:56 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/04/29 08:47:10 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:46:01 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -28,7 +28,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 			dest1[i] = src1[i];
 	}
 	else
-	{	
+	{
 		i = 0;
 		while (i < n)
 		{

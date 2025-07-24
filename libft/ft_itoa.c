@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:10:33 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/04/28 13:31:25 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:45:30 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -17,7 +17,7 @@ static unsigned int	count_int(long n)
 
 	i = 0;
 	if (n < 0)
-	{	
+	{
 		i++;
 		n = n * (-1);
 	}

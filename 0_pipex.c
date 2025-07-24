@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 08:59:06 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/24 20:18:30 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:47:39 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,20 @@ int	main(int ac, char **av, char **envp)
 
 	if (ac != 5)
 		error(&pipex, 1);
-	
-	if(pipe(pipex.pipefd) == -1)
+	if (pipe(pipex.pipefd) == -1)
 		error(&pipex, 1);
-
 	child_process(&pipex, av, envp);
 	parent_close(&pipex);
-	return (0;)
+	return (0);
 }
 
-static void child_process(t_pipex *pipex, char **av, char **envp)
+static void	child_process(t_pipex *pipex, char **av, char **envp)
 {
 	pipex->pid1 = fork();
 	if (pipex->pid1 == -1)
 		error(pipex, EXIT_FAILURE);
 	else if (pipex->pid1 == 0)
 		first_process(pipex, av, envp);
-	
 	pipex->pid2 = fork();
 	if (pipex->pid2 == -1)
 		error(pipex, EXIT_FAILURE);

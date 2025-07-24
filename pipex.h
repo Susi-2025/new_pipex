@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:27:14 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/24 20:18:08 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:49:15 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct s_pipex
 {
-	int	pipefd[2];
+	int		pipefd[2];
 	pid_t	pid1;
 	pid_t	pid2;
 	int		fd_in;
