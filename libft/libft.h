@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 13:04:12 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/24 20:46:23 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/25 20:27:18 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stddef.h>
+# include <stdio.h>
 
 typedef struct s_list
 {
@@ -42,6 +43,11 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
+int		ft_putchar(int c);
+int		ft_putstr(char *str);
+int		ft_putptr(void *ptr, char *base, int i);
+int		ft_putnbr_base(long long number, char *base, int i);
+int		ft_putnbr_base_unsigned(unsigned long long number, char *base, int i);
 char	**ft_split(char const *s, char c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strchr(const char *s, int c);
@@ -58,4 +64,10 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+char	*ft_gnl(int fd);
+char	*ft_gnl_assign(char *buffer, int fd);
+void	ft_free_triptr(char ***str);
+int		check_format(va_list args, const char *string, int i);
+int		check_string(va_list args, const char *string, int i);
+int		ft_printf(const char *string, ...);
 #endif

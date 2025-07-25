@@ -6,7 +6,7 @@
 #    By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/30 16:05:03 by vinguyen          #+#    #+#              #
-#    Updated: 2025/07/23 16:32:40 by vinguyen         ###   ########.fr        #
+#    Updated: 2025/07/25 20:29:58 by vinguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ LIBFT_SRC = $(wildcard $(LIBFT_DIR)/*.c)
 LIBFT_OBJ = $(LIBFT_SRC:.c=.o)
 
 SRC =	0_pipex.c \
+		1_child_process.c \
+		2_execute.c \
+		9_pipex_utils.c
 
 OBJ = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
 

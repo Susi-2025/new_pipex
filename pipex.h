@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:27:14 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/24 20:49:15 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/25 20:28:53 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,27 @@
 # include <fcntl.h>  // for open
 # include <unistd.h> // for dup2, pipe, fork, execve
 # include <stdlib.h> // for exit
-# include <sys/types.h> // for pid_t
-# include <limits.h>
+# include <sys/wait.h> // for pid_t
+# include <errno.h>
 # include <stdio.h>
 
 # include "./libft/libft.h"
 
 typedef struct s_pipex
 {
-	int		pipefd[2];
-	pid_t	pid1;
-	pid_t	pid2;
+	int		ac;
+	int		pipe_fd[2];
+	pid_t	p_id1;
+	pid_t	p_id2;
 	int		fd_in;
 	int		fd_out;
 }	t_pipex;
 
 void	first_process(t_pipex *pipex, char **av, char **envp);
 void	second_process(t_pipex *pipex, char **av, char **envp);
+void	execute(t_pipex *pipex, char **av, char **envp, int in_out);
+void	close_stack(t_pipex *pipex);
+void	error(t_pipex *pipex, char *str, int no);
+void	free_error(t_pipex *pipex, char *str, int no, char **arr);
 
 #endif
