@@ -6,19 +6,19 @@
 #    By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/30 16:05:03 by vinguyen          #+#    #+#              #
-#    Updated: 2025/07/25 20:29:58 by vinguyen         ###   ########.fr        #
+#    Updated: 2025/07/26 20:44:16 by vinguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
 
 SRC_DIR = .
-OBJ_DIR = Object
+OBJ_DIR = ./object
 
-LIBFT_DIR = libft
-LIBFT_NAME = $(LIBFT_DIR)/libft.a
-LIBFT_SRC = $(wildcard $(LIBFT_DIR)/*.c)
-LIBFT_OBJ = $(LIBFT_SRC:.c=.o)
+LIBFT_DIR = ./libft
+LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 SRC =	0_pipex.c \
 		1_child_process.c \
@@ -27,37 +27,30 @@ SRC =	0_pipex.c \
 
 OBJ = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
 
-CC = cc
-CFLAGS = -Wall -Werror -Wextra
+all:$(LIBFT_LIB) $(NAME)
 
-all: $(OBJ_DIR) $(LIBFT_NAME) $(NAME)
-
-$(OBJ_DIR):
+$(OBJ_DIR)/%.o: %.c
 	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.SECONDARY: $(OBJ) $(LIBFT_OBJ)
 
 #Build library
-$(LIBFT_NAME): $(LIBFT_OBJ)
-	ar rcs $@ $^
-
-#Compile library object files
-$(LIBFT_DIR)/%.o: $(LIBFT_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-#Compile project obj files into Object folder
-$(OBJ_DIR)/%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(LIBFT_LIB):
+	@$(MAKE) -C $(LIBFT_DIR)
 
 #Build final executable
-$(NAME): $(OBJ) $(LIBFT_NAME)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_NAME) -o $(NAME)
+$(NAME): $(OBJ) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) -o $(NAME)
 
 #cleaning
 clean:
 	rm -rf $(OBJ_DIR)
-	rm -f $(LIBFT_OBJ)
+	@$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -f $(NAME) $(LIBFT_NAME)
+	rm -f $(NAME)
+	@$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 

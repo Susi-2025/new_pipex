@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 08:59:06 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/25 20:38:52 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/26 14:16:14 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,25 @@ static	char	*build_path(char **command, char **envp);
 static	char	**find_path(char **envp);
 static	char	*find_path_cmd(char **out_path, char *command);
 
-void	execute(t_pipex *pipex, char **av, char **envp, int in_out)
+void	execute(t_pipex *pipex, char *av, char **envp)
 {
-	char	**command;
+	char	**args;
 	char	*cmd_path;
 
-	command = NULL;
-	if (in_out == 1)
-		command = split_command(pipex, av[2]);
-	else if (in_out == 2)
-		command = split_command(pipex, av[3]);
-	cmd_path = build_path(command, envp);
-	ft_free_triptr(&command);
-	if (!cmd_path)
-		error(pipex, "Get path for command error", 1);
-	execve(cmd_path, command, envp);
+	args = split_command(pipex, av);
+	if (args[0] == NULL)
+	{
+		ft_putstr_fd("pipex: ", STDERR_FILENO);
+		ft_putstr_fd(av, STDERR_FILENO);
+		ft_putstr_fd(": Command not found\n", STDERR_FILENO);
+		ft_free_triptr(&args);
+		exit(127);
+	}
+	cmd_path = build_path(args, envp);
+	ft_free_triptr(&args);
+	if (cmd_path == NULL)
+		handle_cmd_not_found
+
 }
 
 static	char	**split_command(t_pipex *pipex, char *av)

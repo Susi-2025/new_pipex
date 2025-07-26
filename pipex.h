@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:27:14 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/25 20:28:53 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/26 21:30:04 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,9 @@
 
 typedef struct s_pipex
 {
-	int		ac;
-	int		pipe_fd[2];
-	pid_t	p_id1;
-	pid_t	p_id2;
-	int		fd_in;
-	int		fd_out;
+	int		pipes[2];
+	pid_t	pid[2];
+	int		fd[2];
 }	t_pipex;
 
 void	first_process(t_pipex *pipex, char **av, char **envp);
