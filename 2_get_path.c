@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 21:21:11 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/27 20:17:02 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/27 20:47:21 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ static	char	*find_path_envp(char **envp)
 {
 	char	*out;
 	int		i;
-
+	
+	if (!envp)
+		return (NULL);
 	i = 0;
 	while (envp[i])
 	{

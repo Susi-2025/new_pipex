@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 21:21:11 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/27 20:17:33 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/27 20:44:13 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ static	char	*check_cmd_only(char *cmd)
 	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
 	{
 		if (access(cmd, X_OK) == 0)
+		{
+			out = ft_strdup(cmd);
+			if (!out)
+				return (NULL);
+			return (out);
+		}
+		else if (access(cmd, F_OK) == 0)
 		{
 			out = ft_strdup(cmd);
 			if (!out)
