@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   9_pipex_utils.c                                    :+:      :+:    :+:   */
+/*   8_err_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/23 16:53:13 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/27 16:37:06 by vinguyen         ###   ########.fr       */
+/*   Created: 2025/07/27 10:47:50 by vinguyen          #+#    #+#             */
+/*   Updated: 2025/07/27 13:56:22 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	close_stack(t_stack *pipex)
+void	err_msg(char *str, int exit_code)
 {
-	if (!pipex)
-		return ;
-	if (pipex->pipefd[0] >= 0)
-		close(pipex->pipefd[0]);
-	if (pipex->pipefd[1] >= 0)
-		close(pipex->pipefd[1]);
-	if (pipex->fd[0] >= 0)
-		close(pipex->fd[0]);
-	if (pipex->fd[1] >= 0)
-		close(pipex->fd[1]);
+	ft_putstr_fd(str, 2);
+	exit(exit_code);
 }
 
-void	free_stack(t_stack *pipex)
+void	err_exit(char *msg, int exit_code)
 {
-	close_stack(pipex);
+	perror(msg);
+	exit(exit_code);
+}
+
+void	err_clean_exit(t_stack *pipex, char *filename, int exit_code)
+{
+	free_stack(pipex);
+	err_exit(filename, exit_code);
 }
