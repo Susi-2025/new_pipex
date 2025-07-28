@@ -60,5 +60,6 @@
     "pipex.h": "c",
     "fcntl.h": "c",
     "format": "c"
-  }
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }

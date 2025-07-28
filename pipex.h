@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:27:14 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/27 16:38:50 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/28 13:01:51 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_stack
 	int		fd[2];
 }	t_stack;
 
+void	first_child_run(t_stack *pipex, char **av, char **envp);
+void	second_child_run(t_stack *pipex, char **av, char **envp);
 void	run_command(t_stack *pipex, char *command, char **envp);
 char	*get_path(char **envp, char *cmd);
 

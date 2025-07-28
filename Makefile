@@ -6,7 +6,7 @@
 #    By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/30 16:05:03 by vinguyen          #+#    #+#              #
-#    Updated: 2025/07/27 16:36:27 by vinguyen         ###   ########.fr        #
+#    Updated: 2025/07/28 13:01:00 by vinguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,9 @@ LIBFT_DIR = ./libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 SRC =	0_pipex.c \
-		1_run_command.c \
-		2_get_path.c \
+		1_children.c \
+		2_run_command.c \
+		3_get_path.c \
 		8_err_handler.c \
 		9_pipex_utils.c
 
