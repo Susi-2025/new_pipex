@@ -6,17 +6,15 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 13:04:12 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/25 20:27:18 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/28 15:21:17 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stddef.h>
 # include <stdio.h>
 
 typedef struct s_list

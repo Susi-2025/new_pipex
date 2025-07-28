@@ -6,19 +6,15 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:27:14 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/28 13:01:51 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/28 15:25:32 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <fcntl.h>  // for open
-# include <unistd.h> // for dup2, pipe, fork, execve
-# include <stdlib.h> // for exit
-# include <sys/wait.h> // for pid_t
-# include <errno.h>
-# include <stdio.h>
+# include <fcntl.h> 
+# include <sys/wait.h>
 
 # include "./libft/libft.h"
 
