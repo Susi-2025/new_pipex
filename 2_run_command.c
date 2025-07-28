@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 21:21:11 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/27 20:44:13 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/28 18:41:34 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static	char	**cmd_parse(char *commands);
 static	char	*check_cmd_only(char *cmd);
+static	void	handle_error(t_stack *pipex, char *cmd_path, char **cmd_argvs);
 
 void	run_command(t_stack *pipex, char *command, char **envp)
 {
@@ -34,12 +35,7 @@ void	run_command(t_stack *pipex, char *command, char **envp)
 		}
 	}
 	execve(cmd_path, cmd_argvs, envp);
-	perror("execve");
-	ft_free_triptr(&cmd_argvs);
-	free(cmd_path);
-	if (access(cmd_argvs[0], F_OK) == 0 && access(cmd_argvs[0], X_OK) != 0)
-		err_clean_exit(pipex, "permission denied", 126);
-	err_clean_exit(pipex, "execution error", 1);
+	handle_error(pipex, cmd_path, cmd_argvs);
 }
 
 // this function will parse the commands-av[2]. For example: av[2] = 'ls -la'
@@ -91,4 +87,18 @@ static	char	*check_cmd_only(char *cmd)
 		return (NULL);
 	}
 	return (NULL);
+}
+
+static	void	handle_error(t_stack *pipex, char *cmd_path, char **cmd_argvs)
+{
+	int	exit_code;
+
+	if (errno == EACCES)
+		exit_code = 126;
+	else
+		exit_code = 1;
+	perror("execve");
+	ft_free_triptr(&cmd_argvs);
+	free(cmd_path);
+	err_clean_exit_2(pipex, exit_code);
 }
