@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 21:21:11 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/29 18:49:08 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:48:19 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,19 @@ static	char	*check_cmd_only(char *cmd)
 }
 
 static	void	handle_error(t_stack *pipex, char *cmd_path, char **cmd_argvs)
+// {
+// 	int	exit_code;
+
+// 	ft_free_triptr(&cmd_argvs);
+// 	free(cmd_path);
+// 	if (errno == EACCES)
+// 		exit_code = 126;
+// 	else if (errno == ENOENT)
+// 		exit_code = 127;
+// 	else
+// 		exit_code = 1;
+// 	err_clean_exit(pipex, NULL, exit_code);
+// }
 {
 	int	exit_code;
 	int	save_errno;

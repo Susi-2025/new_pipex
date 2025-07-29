@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:27:14 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/28 18:41:47 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:45:02 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h> 
 # include <sys/wait.h>
 # include <errno.h>
+# include <string.h>
 
 # include "./libft/libft.h"
 
@@ -30,13 +31,9 @@ void	first_child_run(t_stack *pipex, char **av, char **envp);
 void	second_child_run(t_stack *pipex, char **av, char **envp);
 void	run_command(t_stack *pipex, char *command, char **envp);
 char	*get_path(char **envp, char *cmd);
-
-void	err_msg(char *str, int err);
 void	err_exit(char *msg, int exit_code);
-void	err_clean_exit(t_stack *pipex, char *filename, int exit_code);
-void	err_clean_exit_2(t_stack *pipex, int exit_code);
-
+void	err_clean_exit(t_stack *pipex, char *msg, int exit_code);
+void	err_cmd_clean_exit(t_stack *pipex, char *msg, int exit_code);
 void	close_stack(t_stack *pipex);
-void	free_stack(t_stack *pipex);
-
+void	print_error(char *str, char *msg);
 #endif

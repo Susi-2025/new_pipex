@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 08:59:06 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/28 21:11:02 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:20:14 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	first_child_run(t_stack *pipex, char **av, char **envp)
 {
 	pipex->pid[0] = fork();
 	if (pipex->pid[0] == -1)
-		err_clean_exit(pipex, "fork", 1);
+		err_clean_exit(pipex, "fork1 error", 1);
 	else if (pipex->pid[0] == 0)
 	{
 		close(pipex->pipefd[0]);
@@ -34,13 +34,13 @@ void	second_child_run(t_stack *pipex, char **av, char **envp)
 {
 	pipex->pid[1] = fork();
 	if (pipex->pid[1] == -1)
-		err_clean_exit(pipex, "fork", 1);
+		err_clean_exit(pipex, "fork2 error", 1);
 	else if (pipex->pid[1] == 0)
 	{
 		close(pipex->pipefd[1]);
 		pipex->fd[1] = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (pipex->fd[1] == -1)
-			err_clean_exit(pipex, av[1], 1);
+			err_clean_exit(pipex, av[4], 1);
 		redirect_pipe(pipex, pipex->pipefd[0], pipex->fd[1]);
 		run_command(pipex, av[3], envp);
 	}

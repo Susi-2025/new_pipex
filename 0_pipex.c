@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 08:59:06 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/28 21:10:29 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:22:00 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ int	main(int ac, char **av, char **envp)
 	t_stack	pipex;
 
 	if (ac != 5)
-		err_msg("Usage: ./pipex file1 cmd1 cmd2 file2\n", 1);
+	{
+		ft_putstr_fd("Usage: ./pipex file1 cmd1 cmd2 file2\n", 2);
+		return (1);
+	}
 	initial(&pipex);
 	if (pipe(pipex.pipefd) == -1)
-		err_exit("pipe", 1);
+		err_exit("pipe err", 1);
 	first_child_run(&pipex, av, envp);
 	second_child_run(&pipex, av, envp);
 	parent_close(&pipex);
@@ -42,15 +45,23 @@ static	void	initial(t_stack *pipex)
 
 static	void	parent_close(t_stack *pipex)
 {
-	int	status1;
-	int	status2;
+	int		status;
+	int		exit_code;
+	pid_t	pid;
 
-	close(pipex->pipefd[0]);
-	close(pipex->pipefd[1]);
-	waitpid(pipex->pid[0], &status1, 0);
-	waitpid(pipex->pid[1], &status2, 0);
-	if (WIFEXITED(status2))
-		exit(WEXITSTATUS(status2));
-	else
-		exit(1);
+	exit_code = 1;
+	close_stack(pipex);
+	pid = wait(&status);
+	while (pid > 0)
+	{
+		if (pid == pipex->pid[1])
+		{
+			if (WIFEXITED(status))
+				exit_code = WEXITSTATUS(status);
+			else
+				exit_code = 1;
+		}
+		pid = wait(&status);
+	}
+	exit (exit_code);
 }
