@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:47:50 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/29 18:49:19 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:39:21 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	err_exit(char *msg, int exit_code)
 		print_error(msg, "No such file or directory");
 	else
 		print_error(msg, strerror(errno));
+	ft_putstr_fd("\n", 2);
 	exit(exit_code);
 }
 
@@ -32,13 +33,19 @@ void	err_clean_exit(t_stack *pipex, char *msg, int exit_code)
 
 void	err_cmd_clean_exit(t_stack *pipex, char *msg, int exit_code)
 {
+	int	temp_errno;
+
+	temp_errno = errno;
 	close_stack(pipex);
-	if (errno == EACCES)
+	if (temp_errno == EACCES)
 		print_error(msg, "Permission denied");
-	else if (errno == ENOENT)
+	else if (temp_errno == ENOENT)
 		print_error(msg, "Command not found");
 	else
-		print_error(msg, strerror(errno));
+	{
+		print_error(msg, strerror(temp_errno));
+	}
+	ft_putstr_fd("\n", 2);
 	exit(exit_code);
 }
 
@@ -51,5 +58,4 @@ void	print_error(char *str, char *msg)
 	}
 	if (msg)
 		ft_putstr_fd(msg, 2);
-	ft_putstr_fd("\n", 2);
 }

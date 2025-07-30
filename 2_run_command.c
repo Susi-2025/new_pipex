@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2_run_command.c                                    :+:      :+:    :+:   */
+/*   2_run_command_origin.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 21:21:11 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/29 18:49:08 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:24:42 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	run_command(t_stack *pipex, char *command, char **envp)
 		cmd_path = get_path(envp, cmd_argvs[0]);
 		if (!cmd_path)
 		{
+			print_error(cmd_argvs[0], NULL);
 			ft_free_triptr(&cmd_argvs);
 			err_cmd_clean_exit(pipex, NULL, 127);
 		}
