@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 21:21:11 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/30 17:34:09 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:43:32 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static	char	*check_cmd_only(t_stack *pipex, char *cmd, char **cmd_argvs)
 	return (NULL);
 }
 
-// add to handle envp empty or unset PATH
 static	int	check_path_envp(char **envp)
 {
 	int	out;
