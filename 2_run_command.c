@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2_run_command_origin.c                             :+:      :+:    :+:   */
+/*   2_run_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 21:21:11 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/30 13:24:42 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:54:12 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 static	char	**cmd_parse(char *commands);
-static	char	*check_cmd_only(char *cmd);
-static	void	handle_error(t_stack *pipex, char *cmd_path, char **cmd_argvs);
+static	char	*check_cmd_only(t_stack *pipex, char *cmd, char **cmd_argvs);
 
 void	run_command(t_stack *pipex, char *command, char **envp)
 {
@@ -23,8 +22,8 @@ void	run_command(t_stack *pipex, char *command, char **envp)
 
 	cmd_argvs = cmd_parse(command);
 	if (!cmd_argvs)
-		err_clean_exit(pipex, "Command not found", 127);
-	cmd_path = check_cmd_only(cmd_argvs[0]);
+		handle_command_error(pipex, 127);
+	cmd_path = check_cmd_only(pipex, cmd_argvs[0], cmd_argvs);
 	if (!cmd_path)
 	{
 		cmd_path = get_path(envp, cmd_argvs[0]);
@@ -36,7 +35,7 @@ void	run_command(t_stack *pipex, char *command, char **envp)
 		}
 	}
 	execve(cmd_path, cmd_argvs, envp);
-	handle_error(pipex, cmd_path, cmd_argvs);
+	handle_exec_error(pipex, cmd_path, cmd_argvs);
 }
 
 static	char	**cmd_parse(char *commands)
@@ -58,7 +57,7 @@ static	char	**cmd_parse(char *commands)
 	return (out);
 }
 
-static	char	*check_cmd_only(char *cmd)
+static	char	*check_cmd_only(t_stack *pipex, char *cmd, char **cmd_argvs)
 {
 	char	*out;
 
@@ -80,34 +79,7 @@ static	char	*check_cmd_only(char *cmd)
 				return (NULL);
 			return (out);
 		}
-		return (NULL);
+		handle_no_file(pipex, cmd_argvs);
 	}
 	return (NULL);
-}
-
-static	void	handle_error(t_stack *pipex, char *cmd_path, char **cmd_argvs)
-{
-	int	exit_code;
-	int	save_errno;
-
-	save_errno = errno;
-	ft_free_triptr(&cmd_argvs);
-	free(cmd_path);
-	if (save_errno == EACCES)
-	{
-		exit_code = 126;
-		print_error(cmd_path, "Permission denied");
-	}
-	else if (save_errno == ENOENT)
-	{
-		exit_code = 127;
-		print_error(cmd_path, "No such file or directory");
-	}
-	else
-	{
-		exit_code = 1;
-		print_error(cmd_path, strerror(save_errno));
-	}
-	close_stack(pipex);
-	exit(exit_code);
 }
