@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 08:59:06 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/30 15:52:54 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:06:20 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	first_child_run(t_stack *pipex, char **av, char **envp)
 {
 	pipex->pid[0] = fork();
 	if (pipex->pid[0] == -1)
-		err_clean_exit(pipex, "fork1 error", 1);
+		err_fork_dup2(pipex, "fork1 error", 1);
 	else if (pipex->pid[0] == 0)
 	{
 		close(pipex->pipefd[0]);
@@ -34,7 +34,7 @@ void	second_child_run(t_stack *pipex, char **av, char **envp)
 {
 	pipex->pid[1] = fork();
 	if (pipex->pid[1] == -1)
-		err_clean_exit(pipex, "fork2 error", 1);
+		err_fork_dup2(pipex, "fork2 error", 1);
 	else if (pipex->pid[1] == 0)
 	{
 		close(pipex->pipefd[1]);
@@ -49,9 +49,9 @@ void	second_child_run(t_stack *pipex, char **av, char **envp)
 static	void	redirect_pipe(t_stack *pipex, int in, int out)
 {
 	if (dup2(in, STDIN_FILENO) == -1)
-		err_clean_exit(pipex, "Dup2 error", 1);
+		err_fork_dup2(pipex, "Dup2 error", 1);
 	if (dup2(out, STDOUT_FILENO) == -1)
-		err_clean_exit(pipex, "Dup2 error", 1);
+		err_fork_dup2(pipex, "Dup2 error", 1);
 	close(in);
 	close(out);
 }

@@ -6,13 +6,14 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 21:21:11 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/30 15:54:12 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:34:09 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 static	char	**cmd_parse(char *commands);
+static	int	check_path_envp(char **envp);
 static	char	*check_cmd_only(t_stack *pipex, char *cmd, char **cmd_argvs);
 
 void	run_command(t_stack *pipex, char *command, char **envp)
@@ -26,12 +27,14 @@ void	run_command(t_stack *pipex, char *command, char **envp)
 	cmd_path = check_cmd_only(pipex, cmd_argvs[0], cmd_argvs);
 	if (!cmd_path)
 	{
+		if (check_path_envp(envp) == 0)
+			handle_envp_error(pipex, cmd_argvs, 127);
 		cmd_path = get_path(envp, cmd_argvs[0]);
 		if (!cmd_path)
 		{
 			print_error(cmd_argvs[0], NULL);
 			ft_free_triptr(&cmd_argvs);
-			err_cmd_clean_exit(pipex, NULL, 127);
+			handle_cmd_path_err(pipex, NULL, 127);
 		}
 	}
 	execve(cmd_path, cmd_argvs, envp);
@@ -82,4 +85,26 @@ static	char	*check_cmd_only(t_stack *pipex, char *cmd, char **cmd_argvs)
 		handle_no_file(pipex, cmd_argvs);
 	}
 	return (NULL);
+}
+
+// add to handle envp empty or unset PATH
+static	int	check_path_envp(char **envp)
+{
+	int	out;
+	int	i;
+
+	if (!envp)
+		return (0);
+	i = 0;
+	out = 0;
+	while (envp[i])
+	{
+		if (ft_strnstr(envp[i], "PATH=", 5) != NULL)
+		{
+			out = 1;
+			break ;
+		}
+		i++;
+	}
+	return (out);
 }

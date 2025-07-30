@@ -6,14 +6,33 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:47:50 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/30 15:54:39 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:31:53 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "stdio.h"
 
-void	err_cmd_clean_exit(t_stack *pipex, char *msg, int exit_code)
+void	handle_no_file(t_stack *pipex, char **cmd_argvs)
+{
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(cmd_argvs[0], 2);
+	ft_putstr_fd(":No such file or directory\n", 2);
+	ft_free_triptr(&cmd_argvs);
+	close_stack(pipex);
+	exit(127);
+}
+
+void	handle_command_error(t_stack *pipex, int exit_code)
+{
+	ft_putstr_fd(" ", 2);
+	ft_putstr_fd(":", 2);
+	ft_putstr_fd(" command not found\n", 2);
+	close_stack(pipex);
+	exit(exit_code);
+}
+
+void	handle_cmd_path_err(t_stack *pipex, char *msg, int exit_code)
 {
 	int	temp_errno;
 
@@ -26,15 +45,6 @@ void	err_cmd_clean_exit(t_stack *pipex, char *msg, int exit_code)
 	else
 		print_error(msg, strerror(temp_errno));
 	ft_putstr_fd("\n", 2);
-	exit(exit_code);
-}
-
-void	handle_command_error(t_stack *pipex, int exit_code)
-{
-	ft_putstr_fd(" ", 2);
-	ft_putstr_fd(":", 2);
-	ft_putstr_fd(" command not found\n", 2);
-	close_stack(pipex);
 	exit(exit_code);
 }
 
@@ -63,14 +73,4 @@ void	handle_exec_error(t_stack *pipex, char *cmd_path, char **cmd_argvs)
 	}
 	close_stack(pipex);
 	exit(exit_code);
-}
-
-void	handle_no_file(t_stack *pipex, char **cmd_argvs)
-{
-	ft_putstr_fd("bash: ", 2);
-	ft_putstr_fd(cmd_argvs[0], 2);
-	ft_putstr_fd(":No such file or directory\n", 2);
-	ft_free_triptr(&cmd_argvs);
-	close_stack(pipex);
-	exit(127);
 }
