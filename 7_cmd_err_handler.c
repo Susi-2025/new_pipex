@@ -6,7 +6,7 @@
 /*   By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:47:50 by vinguyen          #+#    #+#             */
-/*   Updated: 2025/07/30 17:31:53 by vinguyen         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:04:38 by vinguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	handle_exec_error(t_stack *pipex, char *cmd_path, char **cmd_argvs)
 
 	save_errno = errno;
 	ft_free_triptr(&cmd_argvs);
-	free(cmd_path);
 	if (save_errno == EACCES)
 	{
 		exit_code = 126;
@@ -71,6 +70,7 @@ void	handle_exec_error(t_stack *pipex, char *cmd_path, char **cmd_argvs)
 		exit_code = 1;
 		print_error(cmd_path, strerror(save_errno));
 	}
+	free(cmd_path);
 	close_stack(pipex);
 	exit(exit_code);
 }

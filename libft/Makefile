@@ -6,12 +6,12 @@
 #    By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/23 16:29:22 by vinguyen          #+#    #+#              #
-#    Updated: 2025/07/26 20:39:28 by vinguyen         ###   ########.fr        #
+#    Updated: 2025/07/31 13:05:09 by vinguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 OBJ_DIR = obj

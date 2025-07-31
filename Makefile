@@ -6,13 +6,13 @@
 #    By: vinguyen <vinguyen@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/30 16:05:03 by vinguyen          #+#    #+#              #
-#    Updated: 2025/07/30 15:28:49 by vinguyen         ###   ########.fr        #
+#    Updated: 2025/07/31 13:04:58 by vinguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 CC = cc
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 SRC_DIR = .
 OBJ_DIR = ./object
